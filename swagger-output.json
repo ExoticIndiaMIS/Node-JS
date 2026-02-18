@@ -1,0 +1,880 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Exotic India - MIS",
+    "description": "API for managing simple tasks ",
+    "version": "1.0.0"
+  },
+  "host": "localhost:4000",
+  "basePath": "/",
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/api/runQuery": {
+      "post": {
+        "tags": [
+          "General Purpose"
+        ],
+        "description": "Enter Any Query in Request body it will provide json response",
+        "parameters": [
+          {
+            "name": "obj",
+            "in": "body",
+            "description": "SQL QUERY",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "sql": {
+                  "type": "string",
+                  "example": "select * from products limit 1 "
+                }
+              },
+              "required": [
+                "sql"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/login": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "username": {
+                  "type": "string",
+                  "example": ""
+                },
+                "password": {
+                  "type": "string",
+                  "example": ""
+                }
+              },
+              "required": [
+                "username",
+                "password"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/register": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "username": {
+                  "type": "string",
+                  "example": ""
+                },
+                "email": {
+                  "type": "string",
+                  "example": ""
+                },
+                "password": {
+                  "type": "string",
+                  "example": ""
+                },
+                "confirm": {
+                  "type": "string",
+                  "example": ""
+                },
+                "role_id": {
+                  "type": "string",
+                  "example": ""
+                }
+              },
+              "required": [
+                "username",
+                "email",
+                "password",
+                "confirm",
+                "role_id"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "409": {
+            "description": "Conflict"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/User/{id}": {
+      "get": {
+        "tags": [
+          "Auth"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Auth"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "username": {
+                  "example": "any"
+                },
+                "email": {
+                  "example": "any"
+                },
+                "password": {
+                  "example": "any"
+                },
+                "role_id": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Auth"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/listusers": {
+      "get": {
+        "tags": [
+          "Auth"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/createRoles": {
+      "post": {
+        "tags": [
+          "Role Management"
+        ],
+        "description": "Create a new role",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "example": ""
+                },
+                "permissions": {
+                  "type": "string",
+                  "example": ""
+                }
+              },
+              "required": [
+                "name",
+                "permissions"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "409": {
+            "description": "Conflict"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/listRoles": {
+      "get": {
+        "tags": [
+          "Role Management"
+        ],
+        "description": "List all roles",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/role/{id}": {
+      "get": {
+        "tags": [
+          "Role Management"
+        ],
+        "description": "Get role details by ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Role Management"
+        ],
+        "description": "Update role details by ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "example": ""
+                },
+                "permissions": {
+                  "type": "string",
+                  "example": ""
+                }
+              },
+              "required": [
+                "name",
+                "permissions"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Role Management"
+        ],
+        "description": "Delete role by ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/init-db": {
+      "post": {
+        "tags": [
+          "Database"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/runLocalQuery": {
+      "post": {
+        "tags": [
+          "Items"
+        ],
+        "description": "Enter Any Query in Request body it will provide json response",
+        "parameters": [
+          {
+            "name": "obj",
+            "in": "body",
+            "description": "RUN LOCAL DB SQL QUERY",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "sql": {
+                  "type": "string",
+                  "example": "select * from item_table limit 1 "
+                }
+              },
+              "required": [
+                "sql"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/items": {
+      "get": {
+        "tags": [
+          "Items"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/items/get-by-codes": {
+      "post": {
+        "tags": [
+          "Items"
+        ],
+        "description": "Get items by an array of item codes",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Array of item codes",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "itemCodes": {
+                  "type": "array",
+                  "example": [
+                    "CODE1",
+                    "CODE2",
+                    "CODE3"
+                  ],
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/items/bulk": {
+      "post": {
+        "tags": [
+          "Items"
+        ],
+        "description": "Bulk insert items into ITEM_TABLE",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Array of items to insert",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "items": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "itemCode": {
+                        "type": "string",
+                        "example": "CODE1"
+                      },
+                      "itemName": {
+                        "type": "string",
+                        "example": "Item 1"
+                      },
+                      "price": {
+                        "type": "number",
+                        "example": 10.5
+                      },
+                      "quantity": {
+                        "type": "number",
+                        "example": 100
+                      },
+                      "imageUrls": {
+                        "type": "string",
+                        "example": "url1"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/items/generate-images": {
+      "post": {
+        "tags": [
+          "Items"
+        ],
+        "description": "Generate Image Links CSV from Excel Input",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "start": {
+                  "type": "number",
+                  "example": 0
+                },
+                "end": {
+                  "type": "number",
+                  "example": 100
+                },
+                "filePath": {
+                  "type": "string",
+                  "example": "Input.xlsx"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/items/sync-remote": {
+      "post": {
+        "tags": [
+          "Items"
+        ],
+        "description": "Sync items from remote DB to local DB (Batch processing for Cron Job)",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {}
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/download-images-zip": {
+      "post": {
+        "tags": [
+          "Items"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Array of item codes",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "itemCodes": {
+                  "type": "array",
+                  "example": [
+                    "CODE1",
+                    "CODE2",
+                    "CODE3"
+                  ],
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/products/productsDetails": {
+      "get": {
+        "tags": [
+          "Products"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "order",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "search",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/products/products": {
+      "post": {
+        "tags": [
+          "Products"
+        ],
+        "description": "Enter Any Query in Request body it will provide json response",
+        "parameters": [
+          {
+            "name": "obj",
+            "in": "body",
+            "description": "GET PRODUCT",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "itemcode": {
+                  "type": "string",
+                  "example": ""
+                }
+              },
+              "required": [
+                "itemcode"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/products/product_stock_prices": {
+      "post": {
+        "tags": [
+          "Product_Stock_Prices"
+        ],
+        "description": "Enter Any Query in Request body it will provide json response",
+        "parameters": [
+          {
+            "name": "obj",
+            "in": "body",
+            "description": "GET Product_Stock_Prices",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "itemcode": {
+                  "type": "string",
+                  "example": ""
+                }
+              },
+              "required": [
+                "itemcode"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/products/product_fields_books": {
+      "post": {
+        "tags": [
+          "Products_Fields_Books"
+        ],
+        "description": "Enter Any Query in Request body it will provide json response",
+        "parameters": [
+          {
+            "name": "obj",
+            "in": "body",
+            "description": "GET Products_Fields_Books",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "itemcode": {
+                  "type": "string",
+                  "example": ""
+                }
+              },
+              "required": [
+                "itemcode"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/products/product_fields_products": {
+      "post": {
+        "tags": [
+          "Products_Fields_Products"
+        ],
+        "description": "Enter Any Query in Request body it will provide json response",
+        "parameters": [
+          {
+            "name": "obj",
+            "in": "body",
+            "description": "GET Products_Fields_Products",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "itemcode": {
+                  "type": "string",
+                  "example": ""
+                }
+              },
+              "required": [
+                "itemcode"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    }
+  }
+}
