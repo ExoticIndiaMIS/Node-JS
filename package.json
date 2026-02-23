@@ -1,16 +1,24 @@
 {
   "name": "project-1",
   "version": "1.0.0",
-  "main": "app.js",
+  "description": "",
+  "homepage": "https://github.com/ExoticIndiaMIS/Node-JS#readme",
+  "bugs": {
+    "url": "https://github.com/ExoticIndiaMIS/Node-JS/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ExoticIndiaMIS/Node-JS.git"
+  },
+  "license": "ISC",
+  "author": "",
   "type": "module",
+  "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon app.js",
     "swagger": "node swagger.js"
   },
-  "author": "",
-  "license": "ISC",
-  "description": "",
   "dependencies": {
     "agentkeepalive": "^4.6.0",
     "archiver": "^7.0.1",

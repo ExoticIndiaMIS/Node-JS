@@ -35,7 +35,7 @@ app.use((req, res, next) => {
 });
 app.use(express.static(process.cwd())); // To serve the generated .zip files
 // To Parse the body of the email as json
-app.use(express.json())
+app.use(express.json({ limit: '50mb' }));
 
 app.use(express.urlencoded({ extended: true }));
 app.get('/metrics', async (req, res) => {
