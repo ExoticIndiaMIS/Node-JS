@@ -4,14 +4,10 @@ import apiRouter from './routes/apiRoutes.js';
 import swaggerUI from 'swagger-ui-express';
 import swaggerFile from './swagger-output.json' with { type: 'json' };
 import cors from 'cors';
-import { tunnelmole } from 'tunnelmole';
 import client from 'prom-client';
-dotenv.config()
-const app = express()
-app.set('view engine', 'ejs');
-app.use(express.static('public'));
 
-
+dotenv.config();
+const app = express();
 
 client.collectDefaultMetrics();
 
@@ -33,31 +29,34 @@ app.use((req, res, next) => {
   });
   next();
 });
-app.use(express.static(process.cwd())); // To serve the generated .zip files
-// To Parse the body of the email as json
-app.use(express.json({ limit: '50mb' }));
 
+app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ extended: true }));
+
 app.get('/metrics', async (req, res) => {
   res.set('Content-Type', client.register.contentType);
   res.end(await client.register.metrics());
 });
+
 app.use(cors({
-  origin: "*", // For development, allow everything. For production, put your frontend URL.
+  origin: "*",
   methods: ["GET", "POST", "PUT", "DELETE"],
-  allowedHeaders: ["Content-Type", "Authorization"]
+  allowedHeaders: ["Content-Type", "Authorization", "x-api-key"]
 }));
 
-app.use('/api-docs',swaggerUI.serve,swaggerUI.setup(swaggerFile))
-// Use the Routers
-app.use('/api', apiRouter);  // API routes
-app.use('/', (req,res)=>{
-    res.send({"message":'Welcome'})
-});   
+app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerFile));
 
+// API router for /api/runQuery
+app.use('/api', apiRouter);
 
-app.listen(process.env.PORT,'0.0.0.0',()=>{
-    console.log(`Server is Listening on http://localhost:${process.env.PORT} `, process.env.PORT)
-})
+app.use('/', (req, res) => {
+  res.send({ message: 'Welcome to Exotic India MIS API' });
+});
+
+const PORT = process.env.PORT || 4000;
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`Server is Listening on http://localhost:${PORT}`);
+});
+
 
 

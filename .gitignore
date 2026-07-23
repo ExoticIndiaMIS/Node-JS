@@ -19,12 +19,12 @@ pids
 *.pid.lock
 
 # Environment variables
+.env
+.env.*
 
-
-# OS generated files
-.DS_Store
-Thumbs.db
+# Local data
+users.json
 
 # IDEs and editors
 .vscode/
-.idea/
+.idea/
