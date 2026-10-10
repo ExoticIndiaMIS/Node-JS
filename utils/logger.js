@@ -12,19 +12,24 @@ const customTimestamp = () => {
                 hour12: true,
             }).replace(/,/g, ''); // Removes the comma between date and time
             };
+const consoleFormat = winston.format.combine(
+    winston.format.timestamp({ format: customTimestamp }),
+    winston.format.printf(({ timestamp, level, message, ...meta }) => {
+        return `[${timestamp}] ${level.toUpperCase()}: ${message} ${
+            Object.keys(meta).length ? JSON.stringify(meta) : ''
+        }`;
+    })
+);
+
+const fileFormat = winston.format.combine(
+    winston.format.timestamp({ format: customTimestamp }),
+    winston.format.json()
+);
+
 export const logger = winston.createLogger({
-            format: winston.format.combine(
-                winston.format.timestamp({ format: customTimestamp }),
-                winston.format.printf(({ timestamp, level, message, ...meta }) => {
-                return `[${timestamp}] ${level.toUpperCase()}: ${message} ${
-                    Object.keys(meta).length ? JSON.stringify(meta) : ''
-                }`;
-                }),
-                winston.format.json() // Central systems love JSON for filtering
-            ),
-            transports: [
-                new winston.transports.Console(),
-                new winston.transports.File({ filename: 'sync.log' }),
-                new winston.transports.File({ filename: 'api_calls.log' })
-            ]
-})
+    transports: [
+        new winston.transports.Console({ format: consoleFormat }),
+        new winston.transports.File({ filename: 'sync.log', format: fileFormat }),
+        new winston.transports.File({ filename: 'api_calls.log', format: fileFormat })
+    ]
+});
